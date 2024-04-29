@@ -1,6 +1,7 @@
+import DashboardHeader from './_components/DashboardHeader'
 import SideNav from './_components/SideNav'
 
-export default function AuthLayout({
+export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode
@@ -11,7 +12,10 @@ export default function AuthLayout({
         <SideNav />
       </aside>
 
-      <div className="md:ml-64 bg-sky-200">{children}</div>
+      <div className="md:ml-64">
+        <DashboardHeader />
+        {children}
+      </div>
     </div>
   )
 }
