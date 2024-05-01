@@ -1,6 +1,6 @@
 declare type CreateBudgetParams = {
   name: string
-  amount: string
+  amount: any
   icon: string
   email: User
 }
