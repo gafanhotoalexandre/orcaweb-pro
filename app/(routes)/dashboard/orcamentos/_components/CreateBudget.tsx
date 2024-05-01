@@ -52,7 +52,7 @@ export function CreateBudget() {
             <span>
               <Plus />
             </span>
-            <h2>Criar Novo Orçamento</h2>
+            <h3>Criar Novo Orçamento</h3>
           </div>
         </DialogTrigger>
         <DialogContent>
