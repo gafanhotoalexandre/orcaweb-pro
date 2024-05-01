@@ -5,7 +5,6 @@ import { eq } from 'drizzle-orm'
 
 import { db } from '@/utils/dbConfig'
 import { Budgets } from '@/utils/schema'
-import result from 'postcss/lib/result'
 
 export async function checkUserBudgets(user: User) {
   const budgets = await db
