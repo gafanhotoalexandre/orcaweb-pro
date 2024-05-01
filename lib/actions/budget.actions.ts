@@ -5,6 +5,7 @@ import { eq, getTableColumns, sql } from 'drizzle-orm'
 
 import { db } from '@/utils/dbConfig'
 import { Budget, Expense } from '@/utils/schema'
+import { revalidatePath } from 'next/cache'
 
 export async function checkUserBudgets(user: User) {
   const budgets = await db
@@ -30,6 +31,8 @@ export async function createBudget({
       icon,
     })
     .returning({ insertedId: Budget.id })
+
+  revalidatePath('/')
 
   return result
 }
