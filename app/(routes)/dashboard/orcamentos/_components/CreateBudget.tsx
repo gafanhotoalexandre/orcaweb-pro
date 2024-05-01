@@ -15,15 +15,10 @@ import {
   DialogClose,
   DialogFooter,
 } from '@/components/ui/dialog'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
-import { createBudget } from '@/lib/actions/user.actions'
+import { createBudget } from '@/lib/actions/budget.actions'
 import { User } from '@clerk/nextjs/server'
 import { toast } from 'sonner'
 
@@ -39,7 +34,7 @@ export function CreateBudget() {
   async function handleCreateBudget() {
     const newBudget = await createBudget({
       name: budgetName,
-      amount: budgetAmount,
+      amount: Number(budgetAmount),
       icon: emojiIcon,
       email: user.primaryEmailAddress?.emailAddress!,
     })
