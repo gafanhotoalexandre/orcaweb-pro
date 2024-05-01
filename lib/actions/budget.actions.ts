@@ -1,7 +1,7 @@
 'use server'
 
 import { User } from '@clerk/nextjs/server'
-import { eq, getTableColumns, sql } from 'drizzle-orm'
+import { desc, eq, getTableColumns, sql } from 'drizzle-orm'
 
 import { db } from '@/utils/dbConfig'
 import { Budget, Expense } from '@/utils/schema'
@@ -48,6 +48,7 @@ export async function getUserBudgets(user: User) {
     .leftJoin(Expense, eq(Budget.id, Expense.budgetId))
     .where(eq(Budget.createdBy, user.primaryEmailAddress?.emailAddress!))
     .groupBy(Budget.id)
+    .orderBy(desc(Budget.id))
 
   return budgets
 }
