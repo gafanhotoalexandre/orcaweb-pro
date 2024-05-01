@@ -5,6 +5,7 @@ import { eq } from 'drizzle-orm'
 
 import { db } from '@/utils/dbConfig'
 import { Budgets } from '@/utils/schema'
+import result from 'postcss/lib/result'
 
 export async function checkUserBudgets(user: User) {
   const budgets = await db
@@ -13,4 +14,23 @@ export async function checkUserBudgets(user: User) {
     .where(eq(Budgets.createdBy, user.primaryEmailAddress?.emailAddress!))
 
   return budgets
+}
+
+export async function createBudget({
+  name,
+  amount,
+  icon,
+  email,
+}: CreateBudgetParams) {
+  const result = await db
+    .insert(Budgets)
+    .values({
+      name,
+      amount,
+      createdBy: email,
+      icon,
+    })
+    .returning({ insertedId: Budgets.id })
+
+  return result
 }

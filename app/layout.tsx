@@ -4,6 +4,7 @@ import { ClerkProvider } from '@clerk/nextjs'
 import { ptBR } from '@clerk/localizations'
 
 import './globals.css'
+import { Toaster } from '@/components/ui/sonner'
 
 const outfit = Outfit({ subsets: ['latin'] })
 
@@ -28,7 +29,11 @@ export default function RootLayout({
       localization={ptBR}
     >
       <html lang="pt-br">
-        <body className={outfit.className}>{children}</body>
+        <body className={outfit.className}>
+          {children}
+
+          <Toaster richColors />
+        </body>
       </html>
     </ClerkProvider>
   )
