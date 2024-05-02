@@ -21,3 +21,11 @@ declare type Budget = {
   totalSpend: number
   totalItem: number
 }
+
+declare type Expense = {
+  id: number
+  name: string
+  amount: string
+  budgetId: number | null
+  createdAt: string
+}
