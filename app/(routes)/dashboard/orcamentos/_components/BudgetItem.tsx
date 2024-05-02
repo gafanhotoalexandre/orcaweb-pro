@@ -8,6 +8,10 @@ interface BudgetItemProps {
   className?: string
 }
 export function BudgetItem({ budget, className }: BudgetItemProps) {
+  function calculateProgressPerc() {
+    const perc = (budget.totalSpend / Number(budget.amount)) * 100
+    return perc
+  }
   return (
     <section
       className={cn(
@@ -47,7 +51,7 @@ export function BudgetItem({ budget, className }: BudgetItemProps) {
             Restante: R${Number(budget.amount) - budget.totalSpend}
           </span>
         </div>
-        <Progress value={50} className="w-full" />
+        <Progress value={calculateProgressPerc()} className="w-full" />
       </div>
     </section>
   )
