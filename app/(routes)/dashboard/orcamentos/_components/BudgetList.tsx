@@ -4,6 +4,7 @@ import { BudgetItem } from './BudgetItem'
 import { CreateBudget } from './CreateBudget'
 
 import { getUserBudgets } from '@/lib/actions/budget.actions'
+import Link from 'next/link'
 
 export async function BudgetList() {
   const user = await currentUser()
@@ -16,7 +17,9 @@ export async function BudgetList() {
         <CreateBudget />
 
         {budgets.map((budget) => (
-          <BudgetItem budget={budget} key={budget.id} />
+          <Link key={budget.id} href={`/dashboard/despesas/${budget.id}`}>
+            <BudgetItem budget={budget} />
+          </Link>
         ))}
       </div>
     </div>

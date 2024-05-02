@@ -1,13 +1,20 @@
 'use client'
 
 import { Progress } from '@/components/ui/progress'
+import { cn } from '@/lib/utils'
 
 interface BudgetItemProps {
   budget: Budget
+  className?: string
 }
-export function BudgetItem({ budget }: BudgetItemProps) {
+export function BudgetItem({ budget, className }: BudgetItemProps) {
   return (
-    <section className="p-5 border rounded-md transition hover:shadow-md cursor-pointer">
+    <section
+      className={cn(
+        'p-5 border rounded-md transition hover:shadow-md cursor-pointer',
+        className
+      )}
+    >
       <div className="flex justify-between items-center">
         <div className="flex gap-2 items-center">
           <span

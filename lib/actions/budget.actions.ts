@@ -1,7 +1,7 @@
 'use server'
 
 import { User } from '@clerk/nextjs/server'
-import { desc, eq, getTableColumns, sql } from 'drizzle-orm'
+import { and, desc, eq, getTableColumns, sql } from 'drizzle-orm'
 
 import { db } from '@/utils/dbConfig'
 import { Budget, Expense } from '@/utils/schema'
@@ -38,7 +38,7 @@ export async function createBudget({
 }
 
 export async function getUserBudgets(user: User) {
-  const budgets = await db
+  const budgets: Budget[] = await db
     .select({
       ...getTableColumns(Budget),
       totalSpend: sql<number>`sum(${Expense.amount})`.mapWith(Number),
@@ -51,4 +51,24 @@ export async function getUserBudgets(user: User) {
     .orderBy(desc(Budget.id))
 
   return budgets
+}
+
+export async function getBudgetInfo({ user, id }: { user: User; id: number }) {
+  const budgetInfo: Budget[] = await db
+    .select({
+      ...getTableColumns(Budget),
+      totalSpend: sql<number>`sum(${Expense.amount})`.mapWith(Number),
+      totalItem: sql<number>`count(${Expense.id})`.mapWith(Number),
+    })
+    .from(Budget)
+    .leftJoin(Expense, eq(Budget.id, Expense.budgetId))
+    .where(
+      and(
+        eq(Budget.createdBy, user.primaryEmailAddress?.emailAddress!),
+        eq(Budget.id, id)
+      )
+    )
+    .groupBy(Budget.id)
+
+  return budgetInfo[0]
 }
