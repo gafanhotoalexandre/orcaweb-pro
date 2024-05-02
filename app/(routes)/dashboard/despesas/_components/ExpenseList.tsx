@@ -7,6 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import dayjs from 'dayjs'
 import { XIcon } from 'lucide-react'
 
 interface ExpenseListProps {
@@ -28,7 +29,9 @@ export function ExpenseList({ expenses }: ExpenseListProps) {
         {expenses.map((expense) => (
           <TableRow key={expense.id}>
             <TableCell>{expense.name}</TableCell>
-            <TableCell>{expense.amount}</TableCell>
+            <TableCell>
+              R${Number(expense.amount).toFixed(2).replace('.', ',')}
+            </TableCell>
             <TableCell>{expense.createdAt}</TableCell>
             <TableCell>
               <XIcon className="text-rose-500" />

@@ -20,7 +20,6 @@ export function AddExpense({ email, budgetId }: AddExpenseProps) {
       name: expenseName,
       amount: Number(expenseAmount),
       budgetId,
-      email,
     })
 
     if (newExpense) {

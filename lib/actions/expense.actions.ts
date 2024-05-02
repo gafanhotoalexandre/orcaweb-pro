@@ -1,15 +1,16 @@
 'use server'
 
-import { db } from '@/utils/dbConfig'
-import { Budget, Expense } from '@/utils/schema'
 import { desc, eq } from 'drizzle-orm'
 import { revalidatePath } from 'next/cache'
+import dayjs from 'dayjs'
+
+import { db } from '@/utils/dbConfig'
+import { Budget, Expense } from '@/utils/schema'
 
 export async function createExpense({
   name,
   amount,
   budgetId,
-  email,
 }: CreateExpenseParams) {
   try {
     const newExpense = await db
@@ -18,7 +19,7 @@ export async function createExpense({
         name,
         amount,
         budgetId,
-        createdAt: email,
+        createdAt: dayjs().format('DD-MM-YYYY'),
       })
       .returning({ insertedId: Budget.id })
 
@@ -37,7 +38,10 @@ export async function getExpenseList(id: number) {
       .where(eq(Expense.budgetId, id))
       .orderBy(desc(Expense.id))
 
-    return expenses
+    return expenses.map((expense) => ({
+      ...expense,
+      createdAt: dayjs(expense.createdAt).format('DD/MM/YYYY'),
+    }))
   } catch (error) {
     console.error(error)
   }

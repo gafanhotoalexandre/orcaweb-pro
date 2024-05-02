@@ -9,7 +9,6 @@ declare type CreateExpenseParams = {
   name: string
   amount: any
   budgetId: number
-  email: string
 }
 
 declare type Budget = {
