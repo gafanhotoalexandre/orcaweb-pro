@@ -1,3 +1,5 @@
+'use client'
+
 import {
   Table,
   TableBody,
@@ -7,8 +9,10 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import dayjs from 'dayjs'
+import { deleteExpense } from '@/lib/actions/expense.actions'
 import { XIcon } from 'lucide-react'
+import { toast } from 'sonner'
+import DeleteExpenseDialog from './DeleteExpenseDialog'
 
 interface ExpenseListProps {
   expenses: Expense[]
@@ -16,6 +20,7 @@ interface ExpenseListProps {
 export function ExpenseList({ expenses }: ExpenseListProps) {
   return (
     <Table className="mt-3">
+      <TableCaption>Uma Lista de suas Despesas Recentes</TableCaption>
       <TableHeader className="bg-slate-200">
         <TableRow className="text-lg">
           <TableHead>Nome</TableHead>
@@ -26,18 +31,26 @@ export function ExpenseList({ expenses }: ExpenseListProps) {
       </TableHeader>
 
       <TableBody>
-        {expenses.map((expense) => (
-          <TableRow key={expense.id}>
-            <TableCell>{expense.name}</TableCell>
-            <TableCell>
-              R${Number(expense.amount).toFixed(2).replace('.', ',')}
-            </TableCell>
-            <TableCell>{expense.createdAt}</TableCell>
-            <TableCell>
-              <XIcon className="text-rose-500" />
+        {expenses.length === 0 ? (
+          <TableRow>
+            <TableCell className="text-center text-base" colSpan={4}>
+              Ainda não há despesas registradas
             </TableCell>
           </TableRow>
-        ))}
+        ) : (
+          expenses.map((expense) => (
+            <TableRow key={expense.id}>
+              <TableCell>{expense.name}</TableCell>
+              <TableCell>
+                R${Number(expense.amount).toFixed(2).replace('.', ',')}
+              </TableCell>
+              <TableCell>{expense.createdAt}</TableCell>
+              <TableCell>
+                <DeleteExpenseDialog expenseId={expense.id} />
+              </TableCell>
+            </TableRow>
+          ))
+        )}
       </TableBody>
     </Table>
   )

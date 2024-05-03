@@ -30,6 +30,20 @@ export async function createExpense({
   }
 }
 
+export async function deleteExpense(expenseId: number) {
+  try {
+    const deletedExpense = await db
+      .delete(Expense)
+      .where(eq(Expense.id, expenseId))
+      .returning()
+
+    revalidatePath('/')
+    return deletedExpense
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 export async function getExpenseList(id: number) {
   try {
     const expenses = await db
