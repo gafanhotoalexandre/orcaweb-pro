@@ -1,5 +1,3 @@
-'use client'
-
 import {
   Table,
   TableBody,
@@ -9,9 +7,6 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { deleteExpense } from '@/lib/actions/expense.actions'
-import { XIcon } from 'lucide-react'
-import { toast } from 'sonner'
 import DeleteExpenseDialog from './DeleteExpenseDialog'
 
 interface ExpenseListProps {

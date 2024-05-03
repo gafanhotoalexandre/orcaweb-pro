@@ -47,7 +47,7 @@ export function CreateBudget() {
   return (
     <section>
       <Dialog>
-        <DialogTrigger asChild>
+        <DialogTrigger className="w-full">
           <div className="bg-slate-100 p-10 rounded-md flex flex-col items-center border-2 border-dashed cursor-pointer hover:shadow-md transition">
             <span>
               <Plus />

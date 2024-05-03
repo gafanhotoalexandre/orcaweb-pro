@@ -8,6 +8,8 @@ import { getBudgetInfo } from '@/lib/actions/budget.actions'
 import { getExpenseList } from '@/lib/actions/expense.actions'
 import { AddExpense } from './_components/AddExpense'
 import { ExpenseList } from './_components/ExpenseList'
+import { Button } from '@/components/ui/button'
+import DeleteBudgetDialog from './_components/DeleteBudgetDialog'
 
 interface DespesaPageParams {
   params: {
@@ -26,7 +28,10 @@ export default async function DespesaPage({ params }: DespesaPageParams) {
 
   return (
     <div className="p-10">
-      <h2 className="font-bold text-3xl">Minhas Despesas</h2>
+      <section className="flex justify-between">
+        <h2 className="font-bold text-3xl">Minhas Despesas</h2>
+        <DeleteBudgetDialog budgetId={budgetInfo.id} />
+      </section>
       <section className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-6">
         <BudgetItem className="h-[170px]" budget={budgetInfo} />
 

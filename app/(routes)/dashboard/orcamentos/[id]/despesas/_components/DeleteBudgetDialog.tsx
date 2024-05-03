@@ -15,24 +15,24 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
-import { deleteExpense } from '@/lib/actions/expense.actions'
 
 interface Props {
-  expenseId: number
+  budgetId: number
 }
-export default function DeleteExpenseDialog({ expenseId }: Props) {
-  async function handleDeleteExpense(expenseId: number) {
-    const deletedExpense = await deleteExpense(expenseId)
-
-    if (deletedExpense) {
-      toast.success('Despesa excluída com sucesso')
-    }
+export default function DeleteBudgetDialog({ budgetId }: Props) {
+  async function handleDeleteBudget(budgetId: number) {
+    alert('Teste')
+    // const deletedExpense = await deleteBudget(budgetId)
+    // if (deletedExpense) {
+    //   toast.success('Despesa excluída com sucesso')
+    // }
   }
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline" size={'icon'}>
-          <XIcon className="text-rose-500" />
+        <Button variant="destructive" className="space-x-1">
+          <XIcon />
+          <p>Remover</p>
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
@@ -40,14 +40,14 @@ export default function DeleteExpenseDialog({ expenseId }: Props) {
           <AlertDialogTitle>Você está certo disso?</AlertDialogTitle>
           <AlertDialogDescription>
             Esta ação não pode ser desfeita. Isto irá eliminar permanentemente
-            esta despesa dos nossos servidores.
+            este orçamento e seus respectivos dados dos nossos servidores.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancelar</AlertDialogCancel>
           <AlertDialogAction
             className="bg-rose-500 hover:bg-rose-400 duration-300"
-            onClick={() => handleDeleteExpense(expenseId)}
+            onClick={() => handleDeleteBudget(budgetId)}
           >
             Excluir
           </AlertDialogAction>
