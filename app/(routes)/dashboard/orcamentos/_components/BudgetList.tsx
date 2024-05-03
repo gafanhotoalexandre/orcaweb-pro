@@ -17,7 +17,10 @@ export async function BudgetList() {
         <CreateBudget />
 
         {budgets.map((budget) => (
-          <Link key={budget.id} href={`/dashboard/despesas/${budget.id}`}>
+          <Link
+            key={budget.id}
+            href={`/dashboard/orcamentos/${budget.id}/despesas`}
+          >
             <BudgetItem budget={budget} />
           </Link>
         ))}
