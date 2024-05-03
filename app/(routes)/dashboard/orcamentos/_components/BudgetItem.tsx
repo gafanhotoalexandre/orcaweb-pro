@@ -31,7 +31,7 @@ export function BudgetItem({ budget, className }: BudgetItemProps) {
             <h3 className="font-bold">{budget.name}</h3>
 
             <span className="text-sm text-gray-500">
-              {budget.totalItem} Item
+              {budget.totalItem} {budget.totalItem <= 1 ? 'Item' : 'Itens'}
             </span>
           </div>
         </div>

@@ -18,6 +18,9 @@ interface ExpenseListProps {
   expenses: Expense[]
 }
 export function ExpenseList({ expenses }: ExpenseListProps) {
+  function formatToCurrency(amount: string) {
+    return Number(amount).toFixed(2).replace('.', ',')
+  }
   return (
     <Table className="mt-3">
       <TableCaption>Uma Lista de suas Despesas Recentes</TableCaption>
@@ -41,9 +44,7 @@ export function ExpenseList({ expenses }: ExpenseListProps) {
           expenses.map((expense) => (
             <TableRow key={expense.id}>
               <TableCell>{expense.name}</TableCell>
-              <TableCell>
-                R${Number(expense.amount).toFixed(2).replace('.', ',')}
-              </TableCell>
+              <TableCell>R${formatToCurrency(expense.amount)}</TableCell>
               <TableCell>{expense.createdAt}</TableCell>
               <TableCell>
                 <DeleteExpenseDialog expenseId={expense.id} />

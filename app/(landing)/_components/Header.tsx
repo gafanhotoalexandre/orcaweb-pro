@@ -1,8 +1,8 @@
 import Image from 'next/image'
 import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
+import Link from 'next/link'
 
 import { Button } from '@/components/ui/button'
-import Link from 'next/link'
 import { MobileMenu } from '@/app/(routes)/dashboard/_components/MobileMenu'
 
 export function Header() {
