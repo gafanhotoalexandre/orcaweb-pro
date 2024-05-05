@@ -16,16 +16,20 @@ import {
 } from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
 
+import { deleteBudget } from '@/lib/actions/budget.actions'
+import { useRouter } from 'next/navigation'
+
 interface Props {
   budgetId: number
 }
 export default function DeleteBudgetDialog({ budgetId }: Props) {
+  const router = useRouter()
   async function handleDeleteBudget(budgetId: number) {
-    alert('Teste')
-    // const deletedExpense = await deleteBudget(budgetId)
-    // if (deletedExpense) {
-    //   toast.success('Despesa excluída com sucesso')
-    // }
+    const deletedExpense = await deleteBudget(budgetId)
+    if (deletedExpense) {
+      toast.success('Orçamento excluído com sucesso')
+      router.replace('/dashboard/orcamentos')
+    }
   }
   return (
     <AlertDialog>

@@ -37,6 +37,29 @@ export async function createBudget({
   return result
 }
 
+export async function deleteBudget(id: number) {
+  try {
+    const deletedBudgetExpenses = await db
+      .delete(Expense)
+      .where(eq(Expense.budgetId, id))
+      .returning()
+
+    if (deletedBudgetExpenses) {
+      const deletedBudget = await db
+        .delete(Budget)
+        .where(eq(Budget.id, id))
+        .returning()
+
+      revalidatePath('/')
+      return deletedBudget
+    }
+
+    return new Error('Não foi possível excluir o orçamento!')
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 export async function getUserBudgets(user: User) {
   const budgets: Budget[] = await db
     .select({
