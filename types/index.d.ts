@@ -5,6 +5,13 @@ declare type CreateBudgetParams = {
   email: string
 }
 
+declare type UpdateBudgetParams = {
+  budgetId: number
+  name: string
+  amount: string | number
+  icon: string
+}
+
 declare type CreateExpenseParams = {
   name: string
   amount: any

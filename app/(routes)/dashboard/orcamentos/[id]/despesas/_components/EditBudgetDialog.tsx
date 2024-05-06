@@ -17,6 +17,8 @@ import { Button } from '@/components/ui/button'
 import { Edit, XIcon } from 'lucide-react'
 import EmojiPicker from 'emoji-picker-react'
 import { Input } from '@/components/ui/input'
+import { updateBudget } from '@/lib/actions/budget.actions'
+import { toast } from 'sonner'
 
 interface EditBudgetDialogProps {
   budget: Budget
@@ -30,8 +32,17 @@ export function EditBudgetDialog({ budget }: EditBudgetDialogProps) {
     budget.amount! as string
   )
 
-  async function handleEditBudget() {
-    console.log(budget)
+  async function handleUpdateBudget() {
+    const updatedBudget = await updateBudget({
+      budgetId: budget.id,
+      name: budgetName,
+      amount: budgetAmount,
+      icon: emojiIcon,
+    })
+
+    if (updatedBudget) {
+      toast.success('Orçamento atualizado com sucesso')
+    }
   }
 
   return (
@@ -48,7 +59,7 @@ export function EditBudgetDialog({ budget }: EditBudgetDialogProps) {
           <DialogDescription>
             <div className="mt-5">
               <Button
-                // onClick={() => setOpenEmojiPicker(!openEmojiPicker)}
+                onClick={() => setOpenEmojiPicker(!openEmojiPicker)}
                 className="text-xl"
                 variant={'outline'}
               >
@@ -108,7 +119,7 @@ export function EditBudgetDialog({ budget }: EditBudgetDialogProps) {
               type="submit"
               className="w-full"
               disabled={!(budgetName && budgetAmount)}
-              onClick={handleEditBudget}
+              onClick={handleUpdateBudget}
             >
               Atualizar Orçamento
             </Button>

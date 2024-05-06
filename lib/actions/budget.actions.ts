@@ -37,6 +37,31 @@ export async function createBudget({
   return result
 }
 
+export async function updateBudget({
+  budgetId,
+  name,
+  amount,
+  icon,
+}: UpdateBudgetParams) {
+  try {
+    const updatedBudget = await db
+      .update(Budget)
+      .set({
+        name,
+        amount: String(amount),
+        icon,
+      })
+      .where(eq(Budget.id, budgetId))
+      .returning()
+
+    revalidatePath('/')
+
+    return updatedBudget
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 export async function deleteBudget(id: number) {
   try {
     const deletedBudgetExpenses = await db
