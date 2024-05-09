@@ -15,7 +15,7 @@ export default function InfoCard({
 }: InfoCardProps) {
   return (
     <Card>
-      <CardContent className="p-7 flex">
+      <CardContent className="p-7 flex items-center">
         <div className="flex-1">
           <h3 className="text-sm">{title}</h3>
           <span className="font-bold text-2xl">
