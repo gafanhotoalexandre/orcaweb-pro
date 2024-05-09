@@ -15,12 +15,16 @@ export default function InfoCard({
 }: InfoCardProps) {
   return (
     <Card>
-      <CardContent className="p-7 flex items-center">
+      <CardContent className="py-7 px-5 flex items-center">
         <div className="flex-1">
           <h3 className="text-sm">{title}</h3>
-          <span className="font-bold text-2xl">
-            {isCurrency ? 'R$' : ''}
-            {value}
+          <span className="font-bold text-xl">
+            {isCurrency
+              ? value.toLocaleString('pt-BR', {
+                  style: 'currency',
+                  currency: 'BRL',
+                })
+              : value}
           </span>
         </div>
         <Icon className="bg-primary text-white h-12 w-12 p-3 rounded-full" />
